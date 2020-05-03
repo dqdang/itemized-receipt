@@ -8,11 +8,19 @@ import sys
 import tkinter as tk
 from tkinter import *
 
+'''
+task
+TODO: implement a loading screen during the loading process
+'''
 def task(downloaded):
     # The window will stay open until this function call ends.
     scrape_websites()
     root.destroy()
 
+'''
+scrape_websites
+scrapes the websites from the base_URL
+'''
 def scrape_websites():
     all_build_sites = []
     all_items = {}
@@ -34,28 +42,46 @@ def scrape_websites():
             else:
                 all_items[item.text].append(build_site)
 
-    initialize_file(all_items)
+    initialize_db(all_items)
 
-def initialize_file(items):
+'''
+initialize_db
+initializes the database
+'''
+def initialize_db(items):
     cur_path = os.path.dirname(os.path.abspath(__file__))
     f_name = os.path.join(cur_path, "icy_n_veiny.json")
     with open(f_name, "w") as f:
         json.dump(items, f, sort_keys=True)
 
-def read_from_file():
+'''
+reads_from_file
+load the database
+'''
+def read_from_db():
     cur_path = os.path.dirname(os.path.abspath(__file__))
     f_name = os.path.join(cur_path, "icy_n_veiny.json")
     with open(f_name, "r") as f:
         items = json.load(f)
     return items
 
+'''
+partial_search
+partial search in database
+'''
 def partial_search(item, list_of_items):
     search_results = []
+    item = item.lower().strip()
     for each_item in list_of_items:
+        each_item = each_item.lower()
         if each_item.startswith(item):
             search_results.append(each_item)
     return search_results
 
+'''
+check_for_item
+checks the database if the item is in it
+'''
 def check_for_item(item, list_of_items):
     results = partial_search(item, list_of_items)
     if len(results) > 0:
@@ -83,6 +109,10 @@ def arg_parser():
 
     return parser
 
+'''
+main
+main function
+'''
 def main():
     parser = arg_parser()
     args = parser.parse_args()
@@ -123,7 +153,7 @@ if __name__ == "__main__":
     tk.Label(top, text="Item: ").grid(row=0, column=0)
     text = tk.Text(root)
     text.configure(bg=root.cget('bg'), relief="flat")
-    list_of_items = read_from_file()
+    list_of_items = read_from_db()
     button = tk.Button(bottom,
             text='Search', command=lambda: check_for_item(item.get(), list_of_items)).grid(row=0, column=0)
     # button.pack()
