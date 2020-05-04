@@ -73,9 +73,10 @@ def partial_search(item, list_of_items):
     search_results = []
     item = item.lower().strip()
     for each_item in list_of_items:
+        orig = each_item
         each_item = each_item.lower()
         if each_item.startswith(item):
-            search_results.append(each_item)
+            search_results.append(orig)
     return search_results
 
 '''
@@ -87,12 +88,6 @@ def check_for_item(item, list_of_items):
     if len(results) > 0:
         b_string = ""
         for each_item in results:
-            split_string = each_item.split()
-            for i in range(len(split_string)):
-                if split_string[i] == "of" or split_string[i] == "the":
-                    continue
-                split_string[i] = split_string[i].capitalize()
-            each_item = " ".join(split_string)
             b_string += "{}\n".format(each_item)
             for build_link in list_of_items[each_item]:
                 b_string += "{}\n".format(build_link)
