@@ -37,7 +37,7 @@ def scrape_websites():
         soup_of_build = BeautifulSoup(r.content, "html.parser")
         list_of_items_for_build = soup_of_build.select("span.d3_icon_span > a")
         for item in list_of_items_for_build:
-            if item not in all_items:
+            if item.text not in all_items:
                 all_items[item.text] = [build_site]
             else:
                 all_items[item.text].append(build_site)

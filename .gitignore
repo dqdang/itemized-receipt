@@ -1,0 +1,11 @@
+*.spec
+*.pkg
+*.toc
+*.txt
+*.html
+*.pyc
+*.pyo
+*.pyx
+*.pyz
+*.manifest
+*.zip
