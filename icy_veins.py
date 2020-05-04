@@ -164,6 +164,7 @@ if __name__ == "__main__":
     button = tk.Button(bottom,
             text='Search', command=lambda: check_for_item(item.get(), list_of_items)).grid(row=0, column=0)
     # button.pack()
+    root.bind('<Return>', lambda event=None: check_for_item(item.get(), list_of_items))
     quit = Button(bottom, text="Quit", command=root.quit).grid(row=0, column=1)
     # quit.pack()
     tk.mainloop()
