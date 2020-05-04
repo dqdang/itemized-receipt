@@ -139,8 +139,9 @@ def main():
 if __name__ == "__main__":
     main()
     root = tk.Tk()
-    # canvas = tk.Canvas(root, width = 600, height = 300)
-    # canvas.pack()
+    width = 500
+    height = 500
+    root.geometry("{}x{}".format(width, height))
     top = Frame(root)
     top.pack(side = TOP)
 
@@ -154,7 +155,7 @@ if __name__ == "__main__":
     item.grid(row=0, column=1)
     # item.pack()
 
-    root.title("Check Diablo Items in Icy Veins")
+    root.title("Diablo Items in Icy Veins")
 
     tk.Label(top, text="Item: ").grid(row=0, column=0)
     text = tk.Text(root)
