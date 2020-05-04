@@ -118,9 +118,11 @@ if __name__ == "__main__":
     height = 500
     root.geometry("{}x{}".format(width, height))
     top = Frame(root)
+    top.config(bg="black")
     top.pack(side = TOP)
 
     bottom = Frame(root)
+    bottom.config(bg="black")
     bottom.pack(side = BOTTOM)
 
     frame = Frame(root)
@@ -131,10 +133,11 @@ if __name__ == "__main__":
     # item.pack()
 
     root.title("Diablo Items in Icy Veins")
+    root.config(bg="black")
 
     tk.Label(top, text="Item: ").grid(row=0, column=0)
     text = tk.Text(root)
-    text.configure(bg=root.cget('bg'), relief="flat")
+    text.configure(bg=root.cget('bg'), foreground="white", relief="flat")
     list_of_items = read_from_db()
     button = tk.Button(bottom,
             text='Search', command=lambda: check_for_item(item.get(), list_of_items)).grid(row=0, column=0)

@@ -9,3 +9,4 @@
 *.pyz
 *.manifest
 *.zip
+dist/*.exe
