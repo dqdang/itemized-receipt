@@ -9,15 +9,6 @@ import tkinter as tk
 from tkinter import *
 
 '''
-task
-TODO: implement a loading screen during the loading process
-'''
-def task(downloaded):
-    # The window will stay open until this function call ends.
-    scrape_websites()
-    root.destroy()
-
-'''
 scrape_websites
 scrapes the websites from the base_URL
 '''
@@ -118,17 +109,6 @@ def main():
     parser = arg_parser()
     args = parser.parse_args()
     if args.scrape:
-        # root = tk.Tk()
-        # root.title("Loading")
-        # downloaded = tk.IntVar(value=0)
-        # progress = ttk.Progressbar(root, orient = 'horizontal', maximum = 10000, variable=downloaded, mode = 'determinate')
-        # progress.pack()
-
-        # label = tk.Label(root, text="Creating Database")
-        # label.pack()
-
-        # root.after(200, task, downloaded)
-        # root.mainloop()
         scrape_websites()
 
 if __name__ == "__main__":
