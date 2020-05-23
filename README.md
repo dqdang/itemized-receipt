@@ -1,2 +1,2 @@
 # diablo_item_checker
-icy and veiny
+icy veins scraper into local db lookup desktop app
