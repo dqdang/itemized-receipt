@@ -8,17 +8,19 @@ import sys
 import tkinter as tk
 from tkinter import *
 
-'''
-scrape_websites
-scrapes the websites from the base_URL
-'''
+
 def scrape_websites():
+    '''
+    scrape_websites
+    scrapes the websites from the base_URL
+    '''
     all_build_sites = []
     all_items = {}
     base_URL = "https://www.icy-veins.com/d3/"
     r = requests.get(base_URL)
     soup_of_all = BeautifulSoup(r.content, "html.parser")
-    build_links = soup_of_all.select("div.nav_content_block_d3_build > span > a")
+    build_links = soup_of_all.select(
+        "div.nav_content_block_d3_build > span > a")
     for link in build_links:
         str_link = str(link).lower()
         if "with" in str_link:
@@ -35,32 +37,36 @@ def scrape_websites():
 
     initialize_db(all_items)
 
-'''
-initialize_db
-initializes the database
-'''
+
 def initialize_db(items):
+    '''
+    initialize_db
+    initializes the database
+    '''
     cur_path = os.path.dirname(os.path.abspath(__file__))
     f_name = os.path.join(cur_path, "icy_n_veiny.json")
     with open(f_name, "w") as f:
         json.dump(items, f, sort_keys=True)
 
-'''
-reads_from_file
-load the database
-'''
+
 def read_from_db():
+    '''
+    reads_from_file
+    load the database
+    '''
     cur_path = os.path.dirname(os.path.abspath(__file__))
     f_name = os.path.join(cur_path, "icy_n_veiny.json")
     with open(f_name, "r") as f:
         items = json.load(f)
     return items
 
-'''
-partial_search
-partial search in database
-'''
+
 def partial_search(item, list_of_items):
+    '''
+    partial_search
+    partial search in database
+    '''
+
     search_results = []
     item = item.lower().strip()
     for each_item in list_of_items:
@@ -70,11 +76,12 @@ def partial_search(item, list_of_items):
             search_results.append(orig)
     return search_results
 
-'''
-check_for_item
-checks the database if the item is in it
-'''
+
 def check_for_item(item, list_of_items):
+    '''
+    check_for_item
+    checks the database if the item is in it
+    '''
     results = partial_search(item, list_of_items)
     if len(results) > 0:
         b_string = ""
@@ -90,26 +97,31 @@ def check_for_item(item, list_of_items):
         text.insert(END, "Item not in build. Can scrap.")
         text.pack()
 
-'''
-arg_parser
-argument parser for command line
-'''
-def arg_parser():
-    parser = argparse.ArgumentParser(description="chk: jenkins checker for the lazy")
 
-    parser.add_argument("-s", "--scrape", dest="scrape", action="store_true", help="scrape from icy-veins website to rebuild local database")
+def arg_parser():
+    '''
+    arg_parser
+    argument parser for command line
+    '''
+    parser = argparse.ArgumentParser(
+        description="chk: jenkins checker for the lazy")
+
+    parser.add_argument("-s", "--scrape", dest="scrape", action="store_true",
+                        help="scrape from icy-veins website to rebuild local database")
 
     return parser
 
-'''
-main
-main function
-'''
+
 def main():
+    '''
+    main
+    main function
+    '''
     parser = arg_parser()
     args = parser.parse_args()
     if args.scrape:
         scrape_websites()
+
 
 if __name__ == "__main__":
     main()
@@ -119,11 +131,11 @@ if __name__ == "__main__":
     root.geometry("{}x{}".format(width, height))
     top = Frame(root)
     top.config(bg="black")
-    top.pack(side = TOP)
+    top.pack(side=TOP)
 
     bottom = Frame(root)
     bottom.config(bg="black")
-    bottom.pack(side = BOTTOM)
+    bottom.pack(side=BOTTOM)
 
     frame = Frame(root)
     frame.pack()
@@ -140,9 +152,10 @@ if __name__ == "__main__":
     text.configure(bg=root.cget('bg'), foreground="white", relief="flat")
     list_of_items = read_from_db()
     button = tk.Button(bottom,
-            text='Search', command=lambda: check_for_item(item.get(), list_of_items)).grid(row=0, column=0)
+                       text='Search', command=lambda: check_for_item(item.get(), list_of_items)).grid(row=0, column=0)
     # button.pack()
-    root.bind('<Return>', lambda event=None: check_for_item(item.get(), list_of_items))
+    root.bind('<Return>', lambda event=None: check_for_item(
+        item.get(), list_of_items))
     quit = Button(bottom, text="Quit", command=root.quit).grid(row=0, column=1)
     # quit.pack()
     tk.mainloop()
