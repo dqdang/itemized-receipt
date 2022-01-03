@@ -104,7 +104,7 @@ def arg_parser():
     argument parser for command line
     '''
     parser = argparse.ArgumentParser(
-        description="chk: jenkins checker for the lazy")
+        description="icy-veins: scraper for icy-veins")
 
     parser.add_argument("-s", "--scrape", dest="scrape", action="store_true",
                         help="scrape from icy-veins website to rebuild local database")
